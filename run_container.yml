@@ -1,5 +1,5 @@
 ---
-- name: Run libvirt
+- name: "Run linchpin_libvirt container"
   hosts: localhost
   connection: local
   tasks:
@@ -16,7 +16,7 @@
       template:
         src: PinFile
         dest: /tmp/linchpintest/PinFile
-    - name: "Template out Pinfile"
+    - name: "Template out topology"
       template:
         src: example-topology.yml
         dest: /tmp/linchpintest/topologies/example-topology.yml
@@ -33,8 +33,6 @@
         command: "cat /root/.ssh/id_rsa.pub "
         name: mylibvirtrun
       register: exec_output
-    - name: Show exec output
-      debug: msg="{{ exec_output.result }}"
     - name: add line to authorized keys
       lineinfile:
         dest: "~/.ssh/authorized_keys"
